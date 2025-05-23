@@ -6,7 +6,10 @@ from pydantic import BaseModel
 import os
 import uvicorn
 
-app = FastAPI()
+app = FastAPI(
+    docs_url="/api-docs",
+    redoc_url="/api-redoc",
+)
 
 
 class AttendanceItem(BaseModel):
