@@ -23,10 +23,11 @@ def read_root():
 
 
 @app.get("/hello-world")
-async def say_hello(name: str) -> dict:
+async def say_hello(name: str):
     if not name:
         raise HTTPException(status_code=400, detail="Name is required")
-    return {"message": f"Hello, {name}!"}
+    headers = {"Access-Control-Allow-Origin": "http://localhost:5500"}
+    return JSONResponse(content={"message": f"Hello {name}"}, headers=headers)
 
 
 @app.post("/attendance")
@@ -36,7 +37,8 @@ async def read_item(data: AttendanceItem):
             status_code=400, detail="Name and student number are required"
         )
     print(f"{data.student_number} {data.name} 출석체크됨.")
-    return {"message": f"{data.student_number} {data.name} 출석체크됨."}
+    headers = {"Access-Control-Allow-Origin": "http://localhost:5500"}
+    return JSONResponse(content={"message": f"{data.student_number} {data.name} 출석체크됨."}, headers=headers)
 
 
 @app.get("/try-cors-error")
